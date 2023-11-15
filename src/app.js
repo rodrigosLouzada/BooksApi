@@ -3,6 +3,9 @@ const app = express();
 const PORT = 3001 ;
 const Middleware = require("./middleware")
 const mid = new Middleware()
+const livros = require("./livros");
+
+app.use("/livros", livros);
 
 app.get("/", (req, res) => {
     res.send("ola mundo")
