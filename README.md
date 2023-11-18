@@ -1,0 +1,2 @@
+# comments
+Use of Node/Express/Knex for the creation of migrations, routes, and functions that access and create data for the database in relation to book queries. The fundamental part of the project is the backend. The sharing of responsibilities was applied only to the class; the same was not done for routes or controllers, separating them from the server (app.js). This decision was made to avoid adding unnecessary complexity to the code, as it can make group collaboration more difficult and less meaningful.
