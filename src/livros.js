@@ -73,4 +73,36 @@ router.get("/filtro/:palavra" , async (request, response) => {
     }
 });
 
+
+router.get("/dados/resumo", async (request, response)=> {
+    try {
+        const consulta = await dbKnex("livros")
+        .count({ num: "*"})
+        .sum({ soma : "preco"})
+        .max({ maior : "preco"})
+        .avg({ media : "preco"});
+        
+        const { num, soma, maior, media} = consulta[0];
+
+        response.status(200).json({ num, soma, maior, media : Number(media.toFixed(2)) });
+
+    }catch(error) {
+        response.status(400).json({ msg : error.message});
+    }
+});
+
+router.get("/dados/grafico", async (resquest, response) =>{
+    try{
+        const totalPorAno = (await dbKnex("livros").select("ano"))
+        .sum({ total : "preco"}).groupBy("ano");
+
+        response.status(200).json({totalPorAno})
+
+    }catch(error){
+        response.status(400).json({ msg : error.message});
+
+    }
+});
+
+
 module.exports = router;
